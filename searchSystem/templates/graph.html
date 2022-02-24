@@ -1,0 +1,145 @@
+{% extends './base.html' %}
+{%  load static %}
+    <script src="{% static '/assets/js/vendor/jquery.min.js' %}"></script>
+
+{% block title %}
+    <h1 class="h1">病虫害学习</h1>
+
+{% endblock %}
+{% block mainbody %}
+    <label for="id-form-select"  class="form-label" style="font-size: 1rem;">蔬菜类型：</label>
+    <select class="form-select" id="id-form-select" aria-label="Default select example">
+        <option value="0">请下拉选择蔬菜类型</option>
+
+    {% for item in plants %}
+    <option value="{{ item.id }}">{{ item.plant_name }}</option>
+    {% endfor %}
+
+</select>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div class = "col-12 border " style="margin-top:3rem;margin-bottom: 3rem;">
+        <div >
+	        <div class="p-3 mb-2 bg-secondary text-white rounded ">
+	            关系图 :
+	        </div>
+            <div class = "panel-body ">
+                <div id="graph" style="width: 100%;height:600px;"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block myscript %}
+        <script src="{% static '/js/echarts.js' %}"></script>
+
+<script type="text/javascript">
+{#$(document).ready(function(){#}
+$('#id-form-select').change(function () {
+
+    $.getJSON("/searchSystem/buildNode",{id:$(this).val()},function(result){
+      $.each(result, function(i, field){
+          console.log(result[0])
+     var myChart = echarts.init(document.getElementById('graph'));
+    var categories = [{
+            name: '蔬菜名称'
+        },{
+            name: '疾病名称'
+        }];
+
+
+    option = {
+        // 图的标题
+        title: {
+            text: '蔬菜病虫害关系图'
+        },
+        // 提示框的配置
+        tooltip: {
+            formatter: function (x) {
+                return x.data.des;
+            }
+        },
+        // 工具箱
+        toolbox: {
+            // 显示工具箱
+            show: true,
+            feature: {
+                mark: {
+                    show: true
+                },
+                // 还原
+                restore: {
+                    show: true
+                },
+                // 保存为图片
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+                return a.name;
+            })
+        }],
+        series: [{
+            type: 'graph', // 类型:关系图
+            layout: 'force', //图的布局，类型为力导图
+            symbolSize: 40, // 调整节点的大小
+            roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [2, 10],
+
+            animation:false ,
+            edgeLabel: {
+                normal: {
+                    textStyle: {
+                        fontSize: 20
+                    }
+                }
+            },
+            force: {
+                repulsion: 2500,
+                edgeLength: [10, 50],
+                layoutAnimation:false,
+            },
+            draggable: true,
+            lineStyle: {
+                normal: {
+                    width: 2,
+                    color: '#4b565b',
+                }
+            },
+            edgeLabel: {
+                normal: {
+                    show: true,
+                    formatter: function (x) {
+                        return x.data.name;
+                    }
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {}
+                }
+            },
+
+            // 数据
+            data:result[0],
+            links: result[1],
+            categories: categories,
+        }]
+    };
+    console.log(option)
+    myChart.setOption(option);
+      });
+    })
+})
+
+
+
+
+
+
+</script>
+{% endblock %}

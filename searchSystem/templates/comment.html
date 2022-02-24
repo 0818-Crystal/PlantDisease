@@ -1,0 +1,56 @@
+{% extends './base.html' %}
+{%  load static %}
+
+   {% block mystyle%}
+
+
+<style>
+
+
+</style>
+   {% endblock %}
+       {% block title %}
+               <h1 class="h2">我的建议</h1>
+
+{% endblock %}
+
+{% block mainbody %}
+          <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">意见内容</th>
+              <th scope="col">意见回复</th>
+              <th scope="col">提问日期</th>
+              <th scope="col">更新日期</th>
+              <th scope="col">回复人</th>
+
+            </tr>
+          </thead>
+          <tbody>
+          {% for item in comments %}
+                <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.content }}</td>
+              <td>{{ item.answer }}</td>
+              <td>{{ item.create_time }}</td>
+              <td>{{ item.update_time }}</td>
+              <td>{{ item.answer_from }}</td>
+            </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+
+{% endblock %}
+ {% block myscript %}
+
+<script>
+
+
+
+
+     </script>
+    {% endblock %}

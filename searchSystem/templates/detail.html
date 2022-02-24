@@ -1,0 +1,207 @@
+{% extends './base.html' %}
+{%  load static %}
+
+   {% block mystyle%}
+
+
+
+   {% endblock %}
+ {% block title %}
+    <h1 class="h2">{{ disease.disease_name }}</h1>
+
+
+          {% endblock %}
+{% block mainbody %}
+
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+{% if disease.harm_part %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        分布为害
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+      <div class="accordion-body">
+        <strong>{{ disease.harm_part }}</strong>
+      </div>
+    </div>
+  </div>
+    {% endif %}
+{% if disease.photos_main %}
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading10">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse10" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+        症状图
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse10" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading10">
+
+ <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{MEDIA_URL}}{{ disease.photos_main }}" class=" img-fluid" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{{MEDIA_URL}}{{ disease.photos_content }}" class=" img-fluid" alt="...">
+    </div>
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+      </div>
+    </div>
+    </div>
+
+
+    {% endif %}
+
+{% if disease.desc %}
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+        病状描述
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+      <div class="accordion-body">
+      {{ disease.desc }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% if disease.cure %}
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+      病原
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+      <div class="accordion-body">
+        {{ disease.cure }}
+            </div>
+    </div>
+  </div>
+</div>
+    {% endif %}
+
+{% if disease.character %}
+<div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+       特征体态
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+      <div class="accordion-body">
+        {{ disease.character }}
+            </div>
+    </div>
+  </div>
+
+{% endif %}
+    {% if disease.regularity %}
+<div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+       发病规律
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+      <div class="accordion-body">
+        {{ disease.regularity  }}
+            </div>
+    </div>
+  </div>
+
+{% endif %}
+    {% if disease.measures %}
+<div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+       防治措施
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+      <div class="accordion-body">
+        {{ disease.measures|safe  }}
+            </div>
+    </div>
+  </div>
+
+{% endif %}
+
+<button type="button"  class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@{{ user }}" style="margin-top: 20px">向我们提出意见</button>
+
+<div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">提出意见</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+          <form  method="post" action="/searchSystem/search/detail/{{ disease.id }}/" >
+{% csrf_token %}
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">反馈人：</label>
+            <input type="text" class="form-control" id="recipient-name"  disabled readonly>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">意见:</label>
+             {{ CommentForm.messageInput }}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button  type="submit" class="btn btn-primary send-suggestion">提交意见</button>
+
+      </div>
+                   </form>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+ {% block myscript %}
+
+<script>
+
+    var exampleModal = document.getElementById('exampleModal')
+exampleModal.addEventListener('show.bs.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var recipient = button.getAttribute('data-bs-whatever')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var modalTitle = exampleModal.querySelector('.modal-title')
+  var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+  modalTitle.textContent = '来自 ' + recipient+' 的新意见';
+  modalBodyInput.value = recipient
+})
+</script>
+
+     <script>
+     $('.send-suggestion').click(function () {
+         console.log('as')
+     })
+     </script>
+    {% endblock %}

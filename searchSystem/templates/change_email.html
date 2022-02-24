@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+
+{% load django_bootstrap5 %}
+{% load i18n %}
+ {% bootstrap_css %}
+      {% bootstrap_javascript %}
+      {% bootstrap_messages %}
+{% block title %}   <h4>{% trans '修改邮箱' %}</h4>{% endblock %}
+{% block  mainbody %}
+
+
+
+    <form method="post">
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        <button class="btn btn-success">{% trans 'Change' %}</button>
+
+    </form>
+
+{% endblock %}

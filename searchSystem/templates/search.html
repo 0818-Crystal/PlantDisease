@@ -1,0 +1,278 @@
+{% extends './base.html' %}
+{%  load static %}
+
+   {% block mystyle%}
+
+ <link href="{% static '/css/index.css' %}" rel="stylesheet">
+
+<style>
+
+            .ui-draggable,
+			.ui-droppable {
+				background-position: top;
+			}
+
+			.ui-autocomplete {
+				max-height: 220px;
+				overflow-y: auto;
+				/* 防止水平滚动条 */
+				overflow-x: hidden;
+			}
+
+
+</style>
+   {% endblock %}
+
+{% block title %}
+    <h1 class="h2">查询系统</h1>
+{% endblock %}
+{% block mainbody %}
+<div class="container">
+<ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">条件查询</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">关键字查询</button>
+  </li>
+
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"> <div class="container border">
+  <form action="/searchSystem/searchByInput/"  >
+  {% csrf_token %}
+  <div class="row align-items-start" style="margin-top: 20px">
+    <div class="col-6">
+
+        {{ searchForm.plant_type.label_tag }}
+                {{ searchForm.plant_type }}
+                        {{ searchForm.plant_type.errors }}
+
+    </div>
+
+      <div class="row align-items-center col">
+
+        {{ searchForm.organ_type.label_tag }}
+          <div  class="form-check form-check-inline">
+                {{ searchForm.organ_type }}
+          </div>
+                      {{ searchForm.organ_type.errors }}
+
+
+ </div>
+  </div>
+       <div class="row align-items-center col-auto input-group mb-3" style="margin-top: 20px" >
+            <div class="col-3 if-same" >
+
+        {{ searchForm.harm_type.label_tag }}
+                {{ searchForm.harm_type }}
+                           {{ searchForm.harm.errors }}
+
+    </div>
+       <div class="col-3">
+
+        {{ searchForm.disease_type.label_tag }}
+                {{ searchForm.disease_type }}
+                           {{ searchForm.disease_type.errors }}
+
+    </div>
+
+          <div class="col-6 " >
+
+
+        {{ searchForm.keywords.label_tag }}
+                {{ searchForm.keywords }}
+                          {{ searchForm.keywords.errors }}
+
+</div>
+
+  </div>
+        <div class="col-auto align-items-center" style="text-align: center;">
+    <button type="submit" class="btn btn-primary mb-3"  style="width: 15% " >搜索</button>
+
+  </div>
+
+</form>
+  </div>
+  </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"><div class="container border">
+     <form action="/searchSystem/searchByKeywords/"  >
+  {% csrf_token %}
+  <div class="row align-items-start" style="margin-top: 20px">
+
+    <div class="input-group mb-3">
+
+         {{ searchForm.keywordsSelect }}
+        {{ searchForm.keywordsSelectInput  }}
+
+
+</div>
+      <div> <p> {{ searchForm.keywordsSelectInput.help_text }}</p></div>
+
+  </div>
+
+
+  <div class="col-auto align-items-center" style="text-align: center;">
+    <button type="submit" class="btn btn-primary mb-3"  style="width: 15% " >搜索</button>
+
+  </div>
+
+</form>
+</div>
+  </div>
+</div>
+
+
+
+
+
+
+  <div class="row align-items-start" style="margin-top: 20px">
+
+
+
+{% if not disease %}
+<p>暂无数据，请重设查询条件。</p>
+{% endif %}
+  {% if disease %}
+      <div class="row align-items-start" style="margin-top: 1rem;margin-bottom: 1rem">
+        <div class="btn-toolbar mb-2 mb-md-0 d-flex justify-content-start">
+          <div class="btn-group me-2 ">
+            <button type="button" class="btn btn btn-outline-secondary image"><i class="bi bi-card-image"></i></button>
+            <button type="button" class="btn btn btn-outline-secondary list"><i class="bi bi-list-ul"></i></button>
+          </div>
+
+        </div>
+</div>
+  {% endif %}
+          {% for d in disease %}
+              <div class="card col-3 " >
+
+  <img src='{{MEDIA_URL}}{{ d.photos_main }}' draggable="false"  class="card-img-top rounded" alt="{{ d.desc }}" style="height: 200px;margin-top: 10px;" >
+
+  <div class="card-body " style="text-align: center">
+    <h5 class="card-title">{{ d.disease_name }}</h5>
+    <p class="card-text d-inline-block text-truncate col" style="display: inline-block;max-width: 80%;">{{ d.desc }}</p>
+    <a href="/searchSystem/search/detail/{{ d.id }}" class="btn btn-primary stretched-link" >查看详情</a>
+  </div>
+</div>
+
+    <div class="show-list" hidden="hidden" >
+        <div class="container border" style="border-radius: 1rem;margin-bottom: 1rem;box-shadow: 10px 10px 5px #888888;">
+
+            <h4 class="h4" style="padding: 1rem">{{ d.disease_name }}</h4>
+            <p>{{ d.desc }}</p>
+            <a href="/searchSystem/search/detail/{{ d.id }}"  ><i class="bi bi-arrow-right-circle-fill" style="font-size: 3rem;position: relative;right: 0;left: 90%;"></i></a>
+        </div>
+
+    </div>
+
+
+
+          {% endfor %}
+
+
+ </div>
+
+</div>
+<div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">提出意见</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">反馈人:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">意见:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary">提交意见</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+ {% block myscript %}
+<script>
+url=window.location.href;
+if(url.indexOf('searchByKeywords')!=-1){
+
+    $("#pills-profile-tab").addClass('active').attr('selected','true');
+    $("#pills-home-tab").removeClass('active').attr('selected','false');
+
+    $("#pills-profile").addClass('active').addClass('show')
+    $("#pills-home").removeClass('active').removeClass('show')
+
+}
+</script>
+<script>
+
+    var exampleModal = document.getElementById('exampleModal')
+exampleModal.addEventListener('show.bs.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var recipient = button.getAttribute('data-bs-whatever')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var modalTitle = exampleModal.querySelector('.modal-title')
+  var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+  modalTitle.textContent = 'New message to ' + recipient
+  modalBodyInput.value = recipient
+})
+</script>
+     <script>
+     var if_same = document.getElementsByClassName('if-same');
+    $(".form-check-inline").click(function(){
+
+
+    if( $("input[type='checkbox']:checked").length>0){
+      $('#id_harm_type').removeAttr('disabled')
+    }else{
+      $('#id_harm_type').attr('disabled','True')
+
+    }
+        });
+
+    $(".list").click(function (){
+        $(".card").attr('hidden', 'hidden')
+     $(".show-list").removeAttr('hidden', 'hidden')
+
+     });
+     $(".image").click(function (){
+        $(".show-list").attr('hidden', 'hidden')
+         $(".card").removeAttr('hidden', 'hidden')
+
+     })
+
+     </script>
+     <script>
+      disease={{ disease_list|safe }}
+
+     $(function() {
+
+
+
+				$("#id_keywords").autocomplete({
+					source: disease,
+					//定义至少输入几个字
+					minLength: 1
+				});
+			});
+
+     </script>
+    {% endblock %}

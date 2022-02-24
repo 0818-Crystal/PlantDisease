@@ -1,0 +1,29 @@
+
+
+{% load i18n %}
+<style>
+body{ text-align:center}
+div{ margin:0 auto; width:400px; height:100px; border:1px solid gray}
+/* css注释：为了观察效果设置宽度 边框 高度等样式 */
+</style>
+  <div class="justify-content-between" style="" >
+
+    <h4 class="h2">已成功登出</h4>
+
+
+<span id="show" ></span>
+    <p>
+        <a href="{% url 'searchSystem:login' %}">重新登陆</a>
+    </p>
+</div>
+<script type="text/javascript">
+var t=5;
+setInterval("refer()",1000);
+function refer(){
+ if(t==0){
+ location.href="{% url 'searchSystem:login' %}";
+ }
+ document.getElementById('show').innerHTML=""+t+"秒后重新登录";
+ t--;
+}
+</script>
