@@ -84,7 +84,7 @@ class SignInViaEmailForm(SignIn):
 
 
 class SignInViaEmailOrUsernameForm(SignIn):
-    email_or_username = forms.CharField(label=_('Email or Username'))
+    email_or_username = forms.CharField(label=_('电子邮箱或用户名'))
 
     @property
     def field_order(self):
@@ -97,10 +97,10 @@ class SignInViaEmailOrUsernameForm(SignIn):
 
         user = User.objects.filter(Q(username=email_or_username) | Q(email__iexact=email_or_username)).first()
         if not user:
-            raise ValidationError(_('You entered an invalid email address or username.'))
+            raise ValidationError(_('你输入了无效邮箱或用户名'))
 
         if not user.is_active:
-            raise ValidationError(_('This account is not active.'))
+            raise ValidationError(_('账号未激活'))
 
         self.user_cache = user
 
