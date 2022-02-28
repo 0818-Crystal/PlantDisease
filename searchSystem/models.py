@@ -67,7 +67,7 @@ class Comments(models.Model):
 
     def __str__(self):
         if self.is_answered:
-            return ('待回复!  发帖人：'+self.question_from.username+',内容:'+self.content)
+            return ('已回复。  发帖人：'+self.question_from.username+',内容:'+self.content)
         else:
-            return ('已回复。 发帖人：'+self.question_from.username+',内容:'+self.content)
+            return ('！！待回复！！ 发帖人：'+self.question_from.username+',内容:'+self.content)
 

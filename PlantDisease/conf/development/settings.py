@@ -85,7 +85,7 @@ DATABASES = {
         'HOST': '127.0.0.1', # mysql的ip地址
         'PORT': 3306,  # mysql的端口
         'USER': 'root',  # mysql的用户名
-        'PASSWORD': '123456'  # mysql的密码
+        'PASSWORD': '124578963'  # mysql的密码
     }
 }
 
@@ -136,10 +136,10 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'media'), ]
-ENABLE_USER_ACTIVATION = True
+ENABLE_USER_ACTIVATION = False
 DISABLE_USERNAME = False
-LOGIN_VIA_EMAIL = True
-LOGIN_VIA_EMAIL_OR_USERNAME = False
+LOGIN_VIA_EMAIL = False
+LOGIN_VIA_EMAIL_OR_USERNAME = True
 LOGIN_REDIRECT_URL = 'searchSystem:index'
 LOGIN_URL = 'log_in'
 USE_REMEMBER_ME = True
