@@ -3,7 +3,13 @@
 
    {% block mystyle%}
 
+<link rel="stylesheet" href="{% static 'css/viewer.min.css' %}">
 
+<style>
+#dowebok { width: 700px; margin: 0 auto; font-size: 0;}
+#dowebok li { display: inline-block; width: 32%; margin-left: 1%; padding-top: 1%;}
+#dowebok li img { width: 100%;}
+</style>
 
    {% endblock %}
  {% block title %}
@@ -38,24 +44,27 @@
       </button>
     </h2>
     <div id="panelsStayOpen-collapse10" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading10">
+<ul id="dowebok">
+	<li><img  src="{{MEDIA_URL}}{{ disease.photos_main }}" alt="图片1"></li>
+	<li><img  src="{{MEDIA_URL}}{{ disease.photos_content }}" alt="图片2" ></li>
+</ul>
+{# <div class="carousel-inner">#}
+{#    <div class="carousel-item active">#}
+{#      <img src="{{MEDIA_URL}}{{ disease.photos_main }}" class=" img-fluid" alt="...">#}
+{#    </div>#}
+{#    <div class="carousel-item">#}
+{#      <img src="{{MEDIA_URL}}{{ disease.photos_content }}" class=" img-fluid" alt="...">#}
+{#    </div>#}
 
- <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{{MEDIA_URL}}{{ disease.photos_main }}" class=" img-fluid" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="{{MEDIA_URL}}{{ disease.photos_content }}" class=" img-fluid" alt="...">
-    </div>
-
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+{#  </div>#}
+{#  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">#}
+{#    <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+{#    <span class="visually-hidden">Previous</span>#}
+{#  </button>#}
+{#  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">#}
+{#    <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+{#    <span class="visually-hidden">Next</span>#}
+{#  </button>#}
       </div>
     </div>
     </div>
@@ -67,11 +76,11 @@
 
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
         病状描述
       </button>
     </h2>
-    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
       <div class="accordion-body">
       {{ disease.desc }}
       </div>
@@ -83,11 +92,11 @@
 
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
       病原
       </button>
     </h2>
-    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
       <div class="accordion-body">
         {{ disease.cure }}
             </div>
@@ -99,11 +108,11 @@
 {% if disease.character %}
 <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
        特征体态
       </button>
     </h2>
-    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
       <div class="accordion-body">
         {{ disease.character }}
             </div>
@@ -114,11 +123,11 @@
     {% if disease.regularity %}
 <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
        发病规律
       </button>
     </h2>
-    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingSix">
       <div class="accordion-body">
         {{ disease.regularity  }}
             </div>
@@ -129,11 +138,11 @@
     {% if disease.measures %}
 <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
        防治措施
       </button>
     </h2>
-    <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+    <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
       <div class="accordion-body">
         {{ disease.measures|safe  }}
             </div>
@@ -178,9 +187,12 @@
 
 {% endblock %}
  {% block myscript %}
+<script src="{% static 'js/viewer.min.js' %}"></script>
 
 <script>
-
+var viewer = new Viewer(document.getElementById('dowebok'), {
+	url: 'src'
+});
     var exampleModal = document.getElementById('exampleModal')
 exampleModal.addEventListener('show.bs.modal', function (event) {
   // Button that triggered the modal
