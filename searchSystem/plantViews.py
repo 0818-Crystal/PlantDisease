@@ -9,7 +9,6 @@ from .plantForms import SearchForm,CommentForm
 
 
 def buildNode(request):
-    print(request.GET)
     plant_list = list(getAllPlant())
     disease_list = list(getAllDiseaseByID(request.GET['id']))
     p_l=len(plant_list)
@@ -17,18 +16,27 @@ def buildNode(request):
     data= list()
 
     link = list()
+    print(disease_list[0])
     for i in range( p_l):
         data.append({'name':plant_list[i]['plant_name'],'des':plant_list[i]['plant_name'],'symbolSize':70,'category':0})
     for i in range(d_l):
          data.append(
             {'name': disease_list[i]['disease_name'], 'des': disease_list[i]['desc'], 'symbolSize': 70, 'category': 1})
-         link.append(
-            {'source':disease_list[i]['plant_id_id']-1,'target':p_l+i,'name':'病害名称','des': '病害名称'})
+         if disease_list[i]['is_disease']:
+            link.append(
+                 {'source':disease_list[i]['plant_id_id']-1,'target':p_l+i,'name':'病害名称','des': '病害名称'})
+         else:
+             link.append(
+            {'source': disease_list[i]['plant_id_id'] - 1, 'target': p_l + i, 'name': '虫害名称', 'des': '虫害名称'})
 
     return JsonResponse((data,link),safe=False)
 
 def index(request):
-
+    print('...')
+    user = request.user
+    print(user.id)
+    if user.id == None:
+        return redirect('searchSystem:login')
 
 
     return render(request,'index.html')
@@ -71,8 +79,7 @@ def searchByInput(request):
                     name = form.cleaned_data['plant_type']
                     organ = form.cleaned_data['organ_type']
                     keywords = form.cleaned_data['keywords']
-                    harm = form.cleaned_data['harm_type']
-                    print(keywords)
+                    # harm = form.cleaned_data['harm_type']
                     con=Q()
                     q2=Q()
 
@@ -88,13 +95,14 @@ def searchByInput(request):
                     con.add(q4,'AND')
 
                     q = models.Plant_disease.objects.filter(con)
-                    if organ:
+                    if organ != ['0']:
+                     if organ :
 
-                        if harm==1:
-                            for i in organ:
-                                q=q.filter(harm_organs__id=i)
-                        else:
-                                q=q.filter(harm_organs__in=organ)
+                        # if harm==1:
+                        #     for i in organ:
+                        #         q=q.filter(harm_organs__id=i)
+                        # else:
+                            q=q.filter(harm_organs__in=organ)
 
                     q=q.distinct()
 

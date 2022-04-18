@@ -7,7 +7,7 @@
 
 {% endblock %}
 {% block mainbody %}
-    <label for="id-form-select"  class="form-label" style="font-size: 1rem;">蔬菜类型：</label>
+    <label for="id-form-select"  class="form-label" style="font-size: 1rem;">蔬菜种类：</label>
     <select class="form-select" id="id-form-select" aria-label="Default select example">
         <option value="0">请下拉选择蔬菜类型</option>
 
@@ -40,7 +40,7 @@ $('#id-form-select').change(function () {
           console.log(result[0])
      var myChart = echarts.init(document.getElementById('graph'));
     var categories = [{
-            name: '蔬菜名称'
+            name: '蔬菜种类'
         },{
             name: '疾病名称'
         }];

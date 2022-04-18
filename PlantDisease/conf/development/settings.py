@@ -136,7 +136,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'media'), ]
-ENABLE_USER_ACTIVATION = False
+ENABLE_USER_ACTIVATION = True
 DISABLE_USERNAME = False
 LOGIN_VIA_EMAIL = False
 LOGIN_VIA_EMAIL_OR_USERNAME = True

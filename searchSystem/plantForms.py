@@ -7,7 +7,7 @@ class SearchForm(forms.Form):
     keywords_choices=((0,'疾病名称'),(1,'症状描述'))
     disease_type=forms.IntegerField(
 
-        label='疾病类型（可选）',
+        label='病虫害类型',
 
         widget=forms.Select(choices=disease_choices,attrs={'class':'form-select vegetable-class','aria-label':'choose vegetable class'}),
         required=False,
@@ -20,20 +20,20 @@ class SearchForm(forms.Form):
 
     )
     organ_type=forms.MultipleChoiceField(
-        label='为害部位（可选）',
+        label='为害部位',
         widget=forms.CheckboxSelectMultiple(attrs={'type':"checkbox"}),
         required=False,
 
 
     )
-    harm_type = forms.IntegerField(
-
-        label='为害类型',
-
-        widget=forms.Select(choices=((1,'部位同时为害'),(2,'非部位同时为害')),attrs={'class':'form-select vegetable-class','aria-label':'choose vegetable class','disabled':'True'}),
-        required=False,
-
-    )
+    # harm_type = forms.IntegerField(
+    #
+    #     label='为害类型',
+    #
+    #     widget=forms.Select(choices=((1,'部位同时为害'),(2,'非部位同时为害')),attrs={'class':'form-select vegetable-class','aria-label':'choose vegetable class','disabled':'True'}),
+    #     required=False,
+    #
+    # )
     keywords = forms.CharField(
         label='疾病名关键字（可选）',
         widget=forms.TextInput(attrs={'class':"form-control" }),
